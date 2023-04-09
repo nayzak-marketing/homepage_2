@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Add any desired styling for the title */
+    #random-title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="random-title">Good [random word] grows wonders</h1>
+
+  <script>
+    const randomWords = ["Karma", "Energy", "Nature", "Friendship", "Creativity", "Passion", "Wisdom", "Harmony"];
+
+    function getRandomWord() {
+      const randomIndex = Math.floor(Math.random() * randomWords.length);
+      return randomWords[randomIndex];
+    }
+
+    function updateTitle() {
+      const titleElement = document.getElementById("random-title");
+      titleElement.innerHTML = "Good " + getRandomWord() + " grows wonders";
+    }
+
+    // Automatically update the title every 5 seconds
+    setInterval(updateTitle, 5000);
+  </script>
+</body>
+</html>
