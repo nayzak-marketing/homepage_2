@@ -4,80 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Add any desired styling for the title */
-    #random-title {
-      font-size: 2rem;
-      font-weight: bold;
-      display: inline-flex;
+  /* Add any desired styling for the title */
+  #random-title {
+    font-size: 2rem;
+    font-weight: bold;
+    display: inline-flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .random-word, .static-word {
+    width: 150px; /* Set a fixed width for each word */
+    text-align: center;
+    padding: 0 10px; /* Add padding to create a gap between words */
+    box-sizing: border-box; /* Make sure the padding is included in the element's width */
+    position: relative;
+    overflow: hidden;
+  }
+  .random-word span {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  .random-word .swipe-in {
+    animation: swipeIn 500ms ease-out;
+  }
+  .random-word .swipe-out {
+    animation: swipeOut 500ms ease-out;
+  }
+  @keyframes swipeIn {
+    0% {
+      transform: translateY(100%);
     }
-    .random-word, .static-word {
-      width: 150px; /* Set a fixed width for each word */
-      text-align: center;
-      padding: 0 10px; /* Add padding to create a gap between words */
-      box-sizing: border-box; /* Make sure the padding is included in the element's width */
-      position: relative;
-      overflow: hidden;
+    100% {
+      transform: translateY(0%);
     }
-    .random-word span {
-      display: inline-block;
-      position: absolute;
-      left: 0;
-      right: 0;
+  }
+  @keyframes swipeOut {
+    0% {
+      transform: translateY(0%);
     }
-    .random-word .swipe-in {
-      animation: swipeIn 500ms ease-out;
+    100% {
+      transform: translateY(-100%);
     }
-    .random-word .swipe-out {
-      animation: swipeOut 500ms ease-out;
+  }
+  /* Add the styles for the background */
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  #background-rotation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-image: url('https://github.com/nayzak-marketing/homepage/blob/main/pexels-jakub-novacek-924824.jpg?raw=true');
+    background-size: 50% 50%;
+    animation: rotate 60s linear infinite;
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg) translate(-50%, -50%);
     }
-    @keyframes swipeIn {
-      0% {
-        transform: translateY(100%);
-      }
-      100% {
-        transform: translateY(0%);
-      }
+    100% {
+      transform: rotate(360deg) translate(-50%, -50%);
     }
-    @keyframes swipeOut {
-      0% {
-        transform: translateY(0%);
-      }
-      100% {
-        transform: translateY(-100%);
-      }
-    }
+  }
+</style>
 
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow: hidden;
-    }
-
-    #background-rotation {
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background-image: url("https://github.com/nayzak-marketing/homepage/blob/main/pexels-jakub-novacek-924824.jpg");
-      background-repeat: repeat;
-      background-position: center center;
-      background-size: cover;
-      animation: rotation 120s infinite linear;
-    }
-
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  </style>
 </head>
 <body>
   <div id="background-rotation"></div>
@@ -89,8 +88,8 @@
   </h1>
 
   <script>
-    const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
-    const randomWords2 = ["Wonders", "Miracles", "Success", "Prosperity", "Growth", "Happiness"];
+    const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Content", "Ideas", "Questions"];
+    const randomWords2 = ["Wonders", "Business", "Success", "Audience", "Investments"];
 
     function getRandomWord(words, currentWord) {
       let randomWord;
