@@ -15,15 +15,32 @@
       text-align: center;
       padding: 0 10px; /* Add padding to create a gap between words */
       box-sizing: border-box; /* Make sure the padding is included in the element's width */
+      position: relative;
+      overflow: hidden;
+    }
+    .random-word span {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      animation: swipeUp 500ms ease-out;
+    }
+    @keyframes swipeUp {
+      0% {
+        transform: translateY(100%);
+      }
+      100% {
+        transform: translateY(0%);
+      }
     }
   </style>
 </head>
 <body>
   <h1 id="random-title">
     <span class="static-word">Good</span>
-    <span class="random-word">Deeds</span>
+    <span class="random-word"><span>Deeds</span></span>
     <span class="static-word">Grows</span>
-    <span class="random-word">Wonders</span>
+    <span class="random-word"><span>Wonders</span></span>
   </h1>
 
   <script>
@@ -38,8 +55,8 @@
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
       const randomWordsElements = titleElement.getElementsByClassName("random-word");
-      randomWordsElements[0].textContent = getRandomWord(randomWords1);
-      randomWordsElements[1].textContent = getRandomWord(randomWords2);
+      randomWordsElements[0].innerHTML = `<span>${getRandomWord(randomWords1)}</span>`;
+      randomWordsElements[1].innerHTML = `<span>${getRandomWord(randomWords2)}</span>`;
     }
 
     // Automatically update the title every 2.5 seconds
