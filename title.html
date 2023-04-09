@@ -23,9 +23,14 @@
       position: absolute;
       left: 0;
       right: 0;
-      animation: swipeUp 500ms ease-out;
     }
-    @keyframes swipeUp {
+    .random-word .swipe-in {
+      animation: swipeIn 500ms ease-out;
+    }
+    .random-word .swipe-out {
+      animation: swipeOut 500ms ease-out;
+    }
+    @keyframes swipeIn {
       0% {
         transform: translateY(100%);
       }
@@ -33,30 +38,60 @@
         transform: translateY(0%);
       }
     }
+    @keyframes swipeOut {
+      0% {
+        transform: translateY(0%);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
   </style>
 </head>
 <body>
   <h1 id="random-title">
-    <span class="static-word">Good</span>
-    <span class="random-word"><span>Deeds</span></span>
-    <span class="static-word">Grows</span>
-    <span class="random-word"><span>Wonders</span></span>
+    <span class="static-word">Good_</span>
+    <span class="random-word"><span>Deeds</span><span></span></span>
+    <span class="static-word">Grows_</span>
+    <span class="random-word"><span>Wonders</span><span></span></span>
   </h1>
 
   <script>
-    const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
-    const randomWords2 = ["Wonders", "Miracles", "Success", "Prosperity", "Growth", "Happiness"];
+    const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Ideas", "Content", "Questions", "Relationships"];
+    const randomWords2 = ["Wonders", "Success", "Business", "Clients", "Investments"];
 
-    function getRandomWord(words) {
-      const randomIndex = Math.floor(Math.random() * words.length);
+    function getRandomWord(words, currentWord) {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * words.length);
+      } while (words[randomIndex] === currentWord);
       return words[randomIndex];
     }
 
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
       const randomWordsElements = titleElement.getElementsByClassName("random-word");
-      randomWordsElements[0].innerHTML = `<span>${getRandomWord(randomWords1)}</span>`;
-      randomWordsElements[1].innerHTML = `<span>${getRandomWord(randomWords2)}</span>`;
+      for (const wordContainer of randomWordsElements) {
+        const wordSpans = wordContainer.getElementsByTagName("span");
+        const currentWord = wordSpans[0];
+        const nextWord = wordSpans[1];
+
+        // Set the next word and apply the swipe-in animation
+        nextWord.textContent = wordContainer === randomWordsElements[0]
+          ? getRandomWord(randomWords1, currentWord.textContent)
+          : getRandomWord(randomWords2, currentWord.textContent);
+        nextWord.classList.add("swipe-in");
+
+        // Apply the swipe-out animation to the current word
+        currentWord.classList.add("swipe-out");
+
+        // After the animation is finished, swap the elements and remove the animation classes
+        setTimeout(() => {
+          currentWord.textContent = nextWord.textContent;
+          currentWord.classList.remove("swipe-out");
+          nextWord.classList.remove("swipe-in");
+               }, 500);
+      }
     }
 
     // Automatically update the title every 2.5 seconds
