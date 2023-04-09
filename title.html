@@ -8,26 +8,41 @@
     #random-title {
       font-size: 2rem;
       font-weight: bold;
+      display: inline-flex;
+    }
+    .random-word, .static-word {
+      width: 150px; /* Set a fixed width for each word */
+      text-align: center;
+      padding: 0 10px; /* Add padding to create a gap between words */
+      box-sizing: border-box; /* Make sure the padding is included in the element's width */
     }
   </style>
 </head>
 <body>
-  <h1 id="random-title">Goodness Grows Wonders</h1>
+  <h1 id="random-title">
+    <span class="static-word">Good</span>
+    <span class="random-word">Deeds</span>
+    <span class="static-word">Grows</span>
+    <span class="random-word">Wonders</span>
+  </h1>
 
   <script>
-    const randomWords = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
+    const randomWords1 = ["Deeds", "Acts", "Behaviour", "Marketing", "Emails", "Caption"];
+    const randomWords2 = ["Wonders", "Miracles", "Success", "Prosperity", "Growth", "Happiness"];
 
-    function getRandomWord() {
-      const randomIndex = Math.floor(Math.random() * randomWords.length);
-      return randomWords[randomIndex];
+    function getRandomWord(words) {
+      const randomIndex = Math.floor(Math.random() * words.length);
+      return words[randomIndex];
     }
 
     function updateTitle() {
       const titleElement = document.getElementById("random-title");
-      titleElement.innerHTML = "Good " + getRandomWord() + " Grows Wonders";
+      const randomWordsElements = titleElement.getElementsByClassName("random-word");
+      randomWordsElements[0].textContent = getRandomWord(randomWords1);
+      randomWordsElements[1].textContent = getRandomWord(randomWords2);
     }
 
-    // Automatically update the title every 5 seconds
+    // Automatically update the title every 2.5 seconds
     setInterval(updateTitle, 2500);
   </script>
 </body>
